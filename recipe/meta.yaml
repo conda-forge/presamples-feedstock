@@ -6,17 +6,17 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: cec2dc121b21b1e52d03ea1b19955407d3609be6e5459d50feda4cdf737054f6
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 1
+  number: 2
 
 requirements:
   host:
-    - python >=3.4
+    - python {{ python_min }}
     - pip
     - setuptools
   run:
@@ -24,12 +24,14 @@ requirements:
     - bw2data
     - numpy
     - peewee
-    - python >=3.4
+    - python >={{ python_min }}
     - scipy
     - stats_arrays
     - wrapt
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - presamples
 
